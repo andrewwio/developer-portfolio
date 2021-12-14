@@ -2102,7 +2102,6 @@ button:focus {
   }
 
   .home__img {
-    width: 450px;
     margin-right: 8rem;
   }
 
@@ -2190,6 +2189,9 @@ button:focus {
 @media screen and (min-width: 1210px) {
   .home__title {
     font-size: var(--big-font-size);
+  }
+  .home__img {
+    width: 450px;
   }
 }
 
