@@ -336,13 +336,12 @@ nav__close:hover {
 
 .home__blob {
   width: 100%;
-  fill: var(--first-color);
   align-items: center;
   margin-top: var(--mb-3);
 }
 
 .home__blob-img {
-  width: 162px;
+  width: 220px;
 }
 
 .home__data {
