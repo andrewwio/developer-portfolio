@@ -247,7 +247,7 @@ themeButton.addEventListener('click', () => {
 
 function autoRedirect() {
   var idleDurationSecs = 10;
-  var redirectUrl = 'http://127.0.0.1:5500/';  // Redirect idle users to this URL
+  var redirectUrl = 'https://andreww.io/';  // Redirect idle users to this URL
   var idleTimeout;
 
   var resetIdleTimeout = function() {
