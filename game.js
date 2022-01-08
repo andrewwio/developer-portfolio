@@ -3,7 +3,7 @@
 kaboom({
   global: true,
   fullscreen: true,
-  scale: 2,
+  scale: 1.5,
   debug: true,
   clearColor: [0.1, 0.1, 0.9, 1] // The RGB code,
 })
@@ -37,6 +37,10 @@ loadSprite('blue-brick', '../img/blue-brick.png')
 loadSprite('blue-surprise', '../img/blue-surprise.png')
 loadSprite('blue-steel', '../img/blue-steel.png')
 loadSprite('mario', '../img/mario.png')
+loadSprite('arrow-up', '../img/arrow-up.png')
+loadSprite('arrow-down', '../img/arrow-down.png')
+loadSprite('arrow-left', '../img/arrow-left.png')
+loadSprite('arrow-right', '../img/arrow-right.png')
 
 
 
@@ -47,28 +51,40 @@ scene("game", ({ level, score }) => {
 
   const maps = [
     [
-      '                                      ',
-      '                                      ',
-      '                                      ',
-      '                                      ',
-      '                                      ',
-      '     %   =*=%=                        ',
-      '                                      ',
-      '                            -+        ',
-      '                    ^   ^   ()        ',
-      '==============================   =====',
+      '                   ',
+      '                   ',
+      '                   ',
+      '                   ',
+      '                   ',
+      '                   ',
+      '                   ',
+      '                   ',
+      '                   ',
+      '                   ',
+      '                   ',
+      '                   ',
+      '                   ',
+      '     %   =*=%=     ',
+      '                   ',
+      '        -+         ',
+      '        ()         ',
+      '============  =====',
+      '                   ',
+      // '         /         ',
+      // '                   ',
+      // '       < | >       ',
     ],
     [
-      '£                                       £',
-      '£                                       £',
-      '£                                       £',
-      '£                                       £',
-      '£                                       £',
-      '£        @@@@@@              x x        £',
-      '£                          x x x        £',
-      '£                        x x x x  x   -+£',
-      '£               z   z  x x x x x  x   ()£',
-      '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+      '£                £',
+      '£                £',
+      '£                £',
+      '£          @!@   £',
+      '£                £',
+      '£       x        £',
+      '£     x x x      £',
+      '£   x x x x    -+£',
+      '£ x x x x x    ()£',
+      '!!!!!!!!!!!!!!!!!!',
     ]
   ]
 
@@ -91,6 +107,12 @@ scene("game", ({ level, score }) => {
     'z': [sprite('blue-evil-shroom'), solid(), scale(0.5), 'dangerous'],
     '@': [sprite('blue-surprise'), solid(), scale(0.5), 'coin-surprise'],
     'x': [sprite('blue-steel'), solid(), scale(0.5)],
+    '/': [sprite('arrow-up'), 'arrow-up'],
+    '|': [sprite('arrow-down'), 'arrow-down'],
+    '<': [sprite('arrow-left'), 'arrow-left'],
+    '>': [sprite('arrow-right'), 'arrow-right'],
+   
+
 
   }
 
@@ -106,6 +128,7 @@ scene("game", ({ level, score }) => {
   ])
 
   add([text('level ' + parseInt(level + 1) ), pos(40, 6)])
+
   
   function big() {
     let timer = 0
@@ -144,6 +167,7 @@ scene("game", ({ level, score }) => {
     big(),
     origin('bot')
   ])
+
 
   action('mushroom', (m) => {
     m.move(20, 0)
@@ -186,7 +210,7 @@ scene("game", ({ level, score }) => {
   })
 
   player.action(() => {
-    camPos(player.pos)
+    // camPos(player.pos)
     if (player.pos.y >= FALL_DEATH) {
       go('lose', { score: scoreLabel.value})
     }
@@ -201,7 +225,9 @@ scene("game", ({ level, score }) => {
     })
   })
 
-  keyDown('left', () => {
+
+
+ keyDown('left', () => {
     player.move(-MOVE_SPEED, 0)
   })
 
@@ -221,17 +247,23 @@ scene("game", ({ level, score }) => {
       player.jump(CURRENT_JUMP_FORCE)
     }
   })
-
   keyPress('up', () => {
     if (player.grounded()) {
       isJumping = true
       player.jump(CURRENT_JUMP_FORCE)
     }
   })
+
+
+//Don't delete these brackets below this line
 })
 
 scene('lose', ({ score }) => {
-  add([text(score, 32), origin('center'), pos(width()/2, height()/ 2)])
+  add([text(score, 32), origin('center'), pos(width()/2, height()/ 2)]),
+  add([text("Press Space to Try Again"), origin('center'), pos(width()/2, height()/3)]),
+  keyDown('space', () => {
+    go("game", { level: 0, score: 0})
+  })
 })
 
 start("game", { level: 0, score: 0})
