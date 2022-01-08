@@ -222,7 +222,7 @@ scene("game", ({ level, score }) => {
     }
   })
 
-  keyDown('up', () => {
+  keyPress('up', () => {
     if (player.grounded()) {
       isJumping = true
       player.jump(CURRENT_JUMP_FORCE)
